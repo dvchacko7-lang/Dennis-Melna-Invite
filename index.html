@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Wedding invitation for Dennis Chacko and Melna Monson">
+  <title>Dennis & Melna — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <div class="invitation-scene" id="invitationScene">
+      <div class="invitation" id="invitation" role="button" tabindex="0" aria-label="Open wedding invitation" aria-expanded="false">
+        <!-- Inside invitation -->
+        <div class="invite-layer" aria-hidden="true">
+          <img src="invite.png" alt="Wedding invitation — Dennis and Melna, Sunday August 29th" class="invite-image" draggable="false">
+        </div>
+
+        <!-- Full cover -->
+        <div class="cover-layer" aria-hidden="true">
+          <img src="cover.png" alt="" class="cover-image" draggable="false">
+        </div>
+
+        <!-- Wax seal -->
+        <div class="seal-wrap" id="sealWrap" aria-hidden="true">
+          <div class="seal" id="seal">
+            <div class="seal__assembled">
+              <span class="seal__ring" aria-hidden="true"></span>
+              <div class="seal__content">
+                <div class="seal__heading">
+                  <span class="seal__line">Open</span>
+                  <span class="seal__line">Invitation</span>
+                </div>
+                <span class="seal__tap">Tap Here</span>
+              </div>
+            </div>
+            <span class="seal__shard seal__shard--tl" aria-hidden="true"></span>
+            <span class="seal__shard seal__shard--tr" aria-hidden="true"></span>
+            <span class="seal__shard seal__shard--br" aria-hidden="true"></span>
+            <span class="seal__shard seal__shard--bl" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+
+      <p class="hint" id="hint">Tap the seal to open</p>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

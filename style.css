@@ -1,0 +1,464 @@
+/* ─── Reset & base ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green-deep: #2d4a3e;
+  --green-mid: #3d5c4f;
+  --cream: #f5f0e8;
+  --shadow-soft: rgba(45, 74, 62, 0.18);
+  --shadow-deep: rgba(30, 50, 42, 0.35);
+  --seal-size: clamp(88px, 26vw, 118px);
+  --break-duration: 0.65s;
+  --fade-duration: 1s;
+  --cover-fade-delay: 1s;
+  --card-ratio: 0.707;
+  --seal-gradient: radial-gradient(
+    circle at 35% 30%,
+    #4a6b5c 0%,
+    var(--green-deep) 45%,
+    #1e3329 100%
+  );
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #e8e4dc 0%, #d4cfc4 45%, #c9c3b6 100%);
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  overflow-x: hidden;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* ─── Layout ─────────────────────────────────────────────────── */
+.page {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.invitation-scene {
+  width: min(92vw, 420px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.invitation {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--card-ratio);
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  border-radius: 2px;
+  box-shadow:
+    0 2px 8px var(--shadow-soft),
+    0 12px 40px var(--shadow-deep);
+}
+
+.invitation:focus-visible {
+  outline: 2px solid var(--green-mid);
+  outline-offset: 6px;
+}
+
+/* ─── Invite (always underneath) ───────────────────────────── */
+.invite-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background: var(--cream);
+  border-radius: 2px;
+}
+
+.invite-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+}
+
+.invitation.is-open .invite-image {
+  animation: inviteSettle 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 1.4s both;
+}
+
+@keyframes inviteSettle {
+  from {
+    opacity: 0.7;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ─── Cover ──────────────────────────────────────────────────── */
+.cover-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 2px;
+  opacity: 1;
+  transition: opacity var(--fade-duration) cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+}
+
+.invitation.is-breaking .cover-layer,
+.invitation.is-open .cover-layer {
+  opacity: 0;
+  transition-delay: var(--cover-fade-delay);
+}
+
+.invitation:not(.is-open):not(.is-breaking) .cover-layer {
+  transition-delay: 0s;
+}
+
+/* ─── Seal wrapper ───────────────────────────────────────────── */
+.seal-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  width: var(--seal-size);
+  height: var(--seal-size);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.seal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Assembled seal ─────────────────────────────────────────── */
+.seal__assembled {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--seal-gradient);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 6px 16px var(--shadow-deep),
+    inset 0 2px 6px rgba(255, 255, 255, 0.15),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.25);
+  color: var(--cream);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.seal__assembled::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.seal__ring {
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 1px dashed rgba(184, 160, 106, 0.45);
+}
+
+.seal__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.seal__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12em;
+}
+
+.seal__line {
+  display: block;
+  text-transform: uppercase;
+  font-size: clamp(0.6rem, 2.5vw, 0.72rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  padding-left: 0.2em;
+  white-space: nowrap;
+}
+
+.seal__tap {
+  margin-top: 0.4em;
+  font-size: clamp(0.5rem, 2vw, 0.58rem);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* Pulse when idle */
+.invitation:not(.is-open):not(.is-breaking) .seal__assembled {
+  animation: sealPulse 3s ease-in-out infinite;
+}
+
+@keyframes sealPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.2),
+      0 6px 16px var(--shadow-deep),
+      inset 0 2px 6px rgba(255, 255, 255, 0.15),
+      inset 0 -4px 10px rgba(0, 0, 0, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.2),
+      0 8px 22px rgba(45, 74, 62, 0.45),
+      inset 0 2px 6px rgba(255, 255, 255, 0.15),
+      inset 0 -4px 10px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.invitation:not(.is-open):not(.is-breaking):hover .seal__assembled {
+  transform: scale(1.04);
+}
+
+.invitation:not(.is-open):not(.is-breaking):active .seal__assembled {
+  transform: scale(0.97);
+}
+
+/* ─── Seal break: shake → crack → shards fly ─────────────────── */
+.invitation.is-breaking .seal__assembled {
+  animation: sealCrack 0.38s ease-in forwards;
+}
+
+@keyframes sealCrack {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  15% {
+    transform: scale(1.06) rotate(-4deg);
+  }
+  30% {
+    transform: scale(1.08) rotate(4deg);
+  }
+  45% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+  60% {
+    transform: scale(1.12) rotate(2deg);
+  }
+  75% {
+    transform: scale(1.14) rotate(-1deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.15) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+.invitation.is-breaking .seal__content {
+  animation: sealTextOut 0.12s ease forwards;
+}
+
+@keyframes sealTextOut {
+  to {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+/* ─── Seal shards (four quadrants) ───────────────────────────── */
+.seal__shard {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background: var(--seal-gradient);
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.seal__shard--tl {
+  top: 0;
+  left: 0;
+  border-radius: 100% 0 0 0;
+  transform-origin: 100% 100%;
+}
+
+.seal__shard--tr {
+  top: 0;
+  right: 0;
+  border-radius: 0 100% 0 0;
+  transform-origin: 0% 100%;
+}
+
+.seal__shard--br {
+  bottom: 0;
+  right: 0;
+  border-radius: 0 0 100% 0;
+  transform-origin: 0% 0%;
+}
+
+.seal__shard--bl {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 0 0 100%;
+  transform-origin: 100% 0%;
+}
+
+.invitation.is-breaking .seal__shard {
+  opacity: 1;
+}
+
+.invitation.is-breaking .seal__shard--tl {
+  animation: shardFlyTL 0.55s cubic-bezier(0.33, 1, 0.68, 1) 0.28s forwards;
+}
+
+.invitation.is-breaking .seal__shard--tr {
+  animation: shardFlyTR 0.55s cubic-bezier(0.33, 1, 0.68, 1) 0.28s forwards;
+}
+
+.invitation.is-breaking .seal__shard--br {
+  animation: shardFlyBR 0.55s cubic-bezier(0.33, 1, 0.68, 1) 0.28s forwards;
+}
+
+.invitation.is-breaking .seal__shard--bl {
+  animation: shardFlyBL 0.55s cubic-bezier(0.33, 1, 0.68, 1) 0.28s forwards;
+}
+
+@keyframes shardFlyTL {
+  to {
+    transform: translate(-42%, -42%) rotate(-32deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes shardFlyTR {
+  to {
+    transform: translate(42%, -42%) rotate(32deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes shardFlyBR {
+  to {
+    transform: translate(42%, 42%) rotate(26deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes shardFlyBL {
+  to {
+    transform: translate(-42%, 42%) rotate(-26deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Hide seal entirely once open */
+.invitation.is-open .seal-wrap {
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s 0.5s, opacity 0.3s ease;
+}
+
+.invitation.is-open {
+  cursor: default;
+}
+
+/* ─── Hint ───────────────────────────────────────────────────── */
+.hint {
+  font-size: 0.95rem;
+  color: var(--green-mid);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+.invitation-scene.is-open .hint {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .cover-layer,
+  .seal__assembled,
+  .seal-wrap,
+  .invite-image {
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
+
+  .invitation.is-breaking .seal__shard {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+
+  .invitation.is-breaking .seal__assembled {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (min-width: 480px) {
+  .invitation-scene {
+    width: min(85vw, 460px);
+  }
+}
+
+@media (min-height: 700px) and (orientation: portrait) {
+  .invitation-scene {
+    width: min(88vw, 440px);
+  }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  .invitation-scene {
+    width: auto;
+    height: min(82vh, 520px);
+  }
+
+  .invitation {
+    height: min(82vh, 520px);
+    width: auto;
+    aspect-ratio: var(--card-ratio);
+  }
+}
