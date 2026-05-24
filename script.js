@@ -27,7 +27,9 @@
       open ? "Close wedding invitation" : "Open wedding invitation"
     );
     if (hint) {
-      hint.textContent = open ? "Tap anywhere to close" : "Tap the seal to open";
+      hint.textContent = open
+        ? "Tap venue names for directions · tap elsewhere to close"
+        : "Tap the seal to open";
     }
   }
 
@@ -62,7 +64,18 @@
     }
   }
 
-  invitation.addEventListener("click", toggle);
+  invitation.addEventListener("click", function (event) {
+    if (event.target.closest(".venue-link")) {
+      return;
+    }
+    toggle();
+  });
+
+  invitation.querySelectorAll(".venue-link").forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+  });
 
   invitation.addEventListener("keydown", function (event) {
     if (event.key === "Enter" || event.key === " ") {

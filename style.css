@@ -13,7 +13,7 @@
   --cream: #f5f0e8;
   --shadow-soft: rgba(45, 74, 62, 0.18);
   --shadow-deep: rgba(30, 50, 42, 0.35);
-  --seal-size: clamp(88px, 26vw, 118px);
+  --seal-size: clamp(74px, 21vw, 100px);
   --break-duration: 0.65s;
   --fade-duration: 1s;
   --cover-fade-delay: 1s;
@@ -96,6 +96,58 @@ body {
   object-position: center;
   display: block;
   pointer-events: none;
+}
+
+/* Clickable map areas aligned to venue text on invite.png */
+.venue-links {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.invitation.is-open .venue-links {
+  pointer-events: auto;
+}
+
+.venue-link {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-indent: -9999px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.venue-link--church {
+  top: 54.5%;
+  width: 72%;
+  height: 7.5%;
+}
+
+.venue-link--hall {
+  top: 63.5%;
+  width: 88%;
+  height: 8.5%;
+}
+
+.venue-link:focus-visible {
+  outline: 2px solid var(--green-mid);
+  outline-offset: 2px;
+  background: rgba(45, 74, 62, 0.08);
+  border-radius: 4px;
+  text-indent: 0;
+  color: var(--green-deep);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  line-height: 1.3;
+  padding: 0.2em;
+  white-space: normal;
 }
 
 .invitation.is-open .invite-image {
