@@ -13,55 +13,67 @@
 <body>
   <main class="page">
     <div class="invitation-scene" id="invitationScene">
-      <div class="invitation" id="invitation" role="button" tabindex="0" aria-label="Open wedding invitation" aria-expanded="false">
-        <!-- Inside invitation -->
-        <div class="invite-layer" aria-hidden="true">
+      <div class="invitation" id="invitation">
+        <!-- Page 1: invitation -->
+        <div class="page-invite" id="pageInvite" role="button" tabindex="0" aria-label="Open wedding invitation">
           <img src="invite.png" alt="Wedding invitation — Dennis and Melna, Sunday August 29th" class="invite-image" draggable="false">
-          <nav class="venue-links" aria-label="Venue map links">
+
+          <div class="cover-layer" aria-hidden="true">
+            <img src="cover.png" alt="" class="cover-image" draggable="false">
+          </div>
+
+          <div class="seal-wrap" id="sealWrap" aria-hidden="true">
+            <div class="seal" id="seal">
+              <div class="seal__assembled">
+                <span class="seal__ring" aria-hidden="true"></span>
+                <div class="seal__content">
+                  <div class="seal__heading">
+                    <span class="seal__line">Open</span>
+                    <span class="seal__line">Invitation</span>
+                  </div>
+                  <span class="seal__tap">Tap Here</span>
+                </div>
+              </div>
+              <span class="seal__shard seal__shard--tl" aria-hidden="true"></span>
+              <span class="seal__shard seal__shard--tr" aria-hidden="true"></span>
+              <span class="seal__shard seal__shard--br" aria-hidden="true"></span>
+              <span class="seal__shard seal__shard--bl" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 2: venue locations (scroll down after opening) -->
+        <section class="page-location" id="pageLocation" aria-hidden="true" aria-label="Venue locations">
+          <div class="location-frame">
+            <img src="location.png" alt="Venue locations — church and auditorium" class="location-image" draggable="false">
+
             <a
-              class="venue-link venue-link--church"
+              class="map-btn map-btn--church"
               href="https://maps.app.goo.gl/1HTZTzB7LGJq1twt7"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Open Immanuel Mar Thoma Church in Google Maps"
-            >Immanuel Mar Thoma Church</a>
+              aria-label="Immanuel Mar Thoma Church — open in Google Maps"
+            >
+              <span class="map-btn__title">Church</span>
+              <span class="map-btn__cta">Click to open in Google Maps</span>
+            </a>
+
             <a
-              class="venue-link venue-link--hall"
+              class="map-btn map-btn--hall"
               href="https://maps.app.goo.gl/B4LcZNH9bEMNHUuo9"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Open Mar Athanasius Mar Thoma Auditorium in Google Maps"
-            >Mar Athanasius Mar Thoma Auditorium</a>
-          </nav>
-        </div>
-
-        <!-- Full cover -->
-        <div class="cover-layer" aria-hidden="true">
-          <img src="cover.png" alt="" class="cover-image" draggable="false">
-        </div>
-
-        <!-- Wax seal -->
-        <div class="seal-wrap" id="sealWrap" aria-hidden="true">
-          <div class="seal" id="seal">
-            <div class="seal__assembled">
-              <span class="seal__ring" aria-hidden="true"></span>
-              <div class="seal__content">
-                <div class="seal__heading">
-                  <span class="seal__line">Open</span>
-                  <span class="seal__line">Invitation</span>
-                </div>
-                <span class="seal__tap">Tap Here</span>
-              </div>
-            </div>
-            <span class="seal__shard seal__shard--tl" aria-hidden="true"></span>
-            <span class="seal__shard seal__shard--tr" aria-hidden="true"></span>
-            <span class="seal__shard seal__shard--br" aria-hidden="true"></span>
-            <span class="seal__shard seal__shard--bl" aria-hidden="true"></span>
+              aria-label="Mar Athanasius Mar Thoma Auditorium — open in Google Maps"
+            >
+              <span class="map-btn__title">Auditorium</span>
+              <span class="map-btn__cta">Click to open in Google Maps</span>
+            </a>
           </div>
-        </div>
+        </section>
       </div>
 
       <p class="hint" id="hint">Tap the seal to open</p>
+      <p class="scroll-hint" id="scrollHint" aria-hidden="true">Scroll down for venue maps</p>
     </div>
   </main>
   <script src="script.js"></script>

@@ -18,6 +18,11 @@
   --fade-duration: 1s;
   --cover-fade-delay: 1s;
   --card-ratio: 0.707;
+  --venue-frame-width: 30%;
+  --venue-church-top: 34.8%;
+  --venue-hall-top: 54.8%;
+  --venue-church-left: 10%;
+  --venue-hall-left: 60%;
   --seal-gradient: radial-gradient(
     circle at 35% 30%,
     #4a6b5c 0%,
@@ -42,6 +47,10 @@ body {
     env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
+body.is-open {
+  align-items: flex-start;
+}
+
 /* ─── Layout ─────────────────────────────────────────────────── */
 .page {
   width: 100%;
@@ -56,10 +65,29 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
+}
+
+.invitation-scene.is-open {
+  max-height: calc(100dvh - 2.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .invitation {
+  position: relative;
+  width: 100%;
+  border-radius: 2px;
+  box-shadow:
+    0 2px 8px var(--shadow-soft),
+    0 12px 40px var(--shadow-deep);
+  background: var(--cream);
+}
+
+/* ─── Page 1: invite + cover + seal ─────────────────────────── */
+.page-invite {
   position: relative;
   width: 100%;
   aspect-ratio: var(--card-ratio);
@@ -68,25 +96,21 @@ body {
   -webkit-user-select: none;
   user-select: none;
   touch-action: manipulation;
-  border-radius: 2px;
-  box-shadow:
-    0 2px 8px var(--shadow-soft),
-    0 12px 40px var(--shadow-deep);
-}
-
-.invitation:focus-visible {
-  outline: 2px solid var(--green-mid);
-  outline-offset: 6px;
-}
-
-/* ─── Invite (always underneath) ───────────────────────────── */
-.invite-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
   overflow: hidden;
   background: var(--cream);
-  border-radius: 2px;
+  border-radius: 2px 2px 0 0;
+}
+
+.invitation.is-open .page-invite {
+  aspect-ratio: auto;
+  overflow: visible;
+  cursor: pointer;
+  border-radius: 2px 2px 0 0;
+}
+
+.page-invite:focus-visible {
+  outline: 2px solid var(--green-mid);
+  outline-offset: 4px;
 }
 
 .invite-image {
@@ -98,59 +122,8 @@ body {
   pointer-events: none;
 }
 
-/* Clickable map areas aligned to venue text on invite.png */
-.venue-links {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.invitation.is-open .venue-links {
-  pointer-events: auto;
-}
-
-.venue-link {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: block;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  text-indent: -9999px;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.venue-link--church {
-  top: 54.5%;
-  width: 72%;
-  height: 7.5%;
-}
-
-.venue-link--hall {
-  top: 63.5%;
-  width: 88%;
-  height: 8.5%;
-}
-
-.venue-link:focus-visible {
-  outline: 2px solid var(--green-mid);
-  outline-offset: 2px;
-  background: rgba(45, 74, 62, 0.08);
-  border-radius: 4px;
-  text-indent: 0;
-  color: var(--green-deep);
-  font-size: 0.65rem;
-  letter-spacing: 0.04em;
-  text-align: center;
-  line-height: 1.3;
-  padding: 0.2em;
-  white-space: normal;
-}
-
 .invitation.is-open .invite-image {
+  height: auto;
   animation: inviteSettle 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 1.4s both;
 }
 
@@ -196,18 +169,137 @@ body {
   transition-delay: 0s;
 }
 
-/* ─── Seal wrapper ───────────────────────────────────────────── */
-.seal-wrap {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 10;
-  width: var(--seal-size);
-  height: var(--seal-size);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+/* ─── Page 2: location ─────────────────────────────────────── */
+.page-location {
+  display:none;
+  width:100%;
+  background:var(--cream);
+
+  border-radius:0 0 2px 2px;
+
+  position:relative;
+
+  z-index:2;
 }
 
+.invitation.is-open .page-location {
+  display: block;
+}
+
+.location-frame {
+  position:relative;
+  width:100%;
+}
+
+.location-image {
+  width:100%;
+  height:auto;
+  display:block;
+  pointer-events:none;
+
+  position:relative;
+  left:9px;
+}
+
+/* Google Maps link boxes over location.png */
+
+/* Google Maps link boxes over location.png */
+
+.map-btn{
+  position:absolute;
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  width:42%;
+  min-height:95px;
+
+  padding:1rem;
+
+  box-sizing:border-box;
+
+  text-decoration:none;
+  text-align:center;
+
+  color:var(--green-deep);
+
+  background:rgba(245,240,232,.96);
+
+  border:1px solid #c9a85d;
+
+  border-radius:12px;
+
+  box-shadow:0 2px 8px var(--shadow-soft);
+
+  cursor:pointer;
+
+  transition:
+  transform .2s ease,
+  background .2s ease;
+}
+
+
+.map-btn--church{
+   top:34%;
+   left:53%;
+}
+
+
+.map-btn--hall{
+   top:63%;
+   left:53%;
+}
+
+
+.map-btn:hover{
+   background:#fff;
+   transform:translateY(-2px);
+}
+
+
+.map-btn__title{
+   display:block;
+   width:100%;
+
+   font-size:.82rem;
+
+   font-weight:600;
+
+   letter-spacing:.12em;
+
+   text-transform:uppercase;
+
+   line-height:1.35;
+}
+
+
+.map-btn__cta{
+   display:block;
+
+   margin-top:.45rem;
+
+   font-size:.65rem;
+
+   font-style:italic;
+
+   text-decoration:underline;
+
+   color:var(--green-mid);
+}
+
+/* ─── Seal wrapper ───────────────────────────────────────────── */
+.seal-wrap {
+  position:absolute;
+  top:68%;
+  left:50%;
+  z-index:10;
+  width:var(--seal-size);
+  height:var(--seal-size);
+  transform:translate(-50%,-50%);
+}
 .seal {
   position: relative;
   width: 100%;
@@ -283,7 +375,7 @@ body {
 }
 
 /* Pulse when idle */
-.invitation:not(.is-open):not(.is-breaking) .seal__assembled {
+.invitation:not(.is-open):not(.is-breaking) .page-invite .seal__assembled {
   animation: sealPulse 3s ease-in-out infinite;
 }
 
@@ -305,11 +397,11 @@ body {
   }
 }
 
-.invitation:not(.is-open):not(.is-breaking):hover .seal__assembled {
+.invitation:not(.is-open):not(.is-breaking) .page-invite:hover .seal__assembled {
   transform: scale(1.04);
 }
 
-.invitation:not(.is-open):not(.is-breaking):active .seal__assembled {
+.invitation:not(.is-open):not(.is-breaking) .page-invite:active .seal__assembled {
   transform: scale(0.97);
 }
 
@@ -449,23 +541,40 @@ body {
   transition: visibility 0s 0.5s, opacity 0.3s ease;
 }
 
-.invitation.is-open {
-  cursor: default;
-}
-
-/* ─── Hint ───────────────────────────────────────────────────── */
-.hint {
+/* ─── Hints ──────────────────────────────────────────────────── */
+.hint,
+.scroll-hint {
   font-size: 0.95rem;
   color: var(--green-mid);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.7;
   transition: opacity 0.4s ease;
+  text-align: center;
 }
 
-.invitation-scene.is-open .hint {
-  opacity: 0;
-  pointer-events: none;
+.scroll-hint {
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  animation: scrollHintBounce 2s ease-in-out 2s infinite;
+}
+
+.scroll-hint[hidden],
+.hint[hidden] {
+  display: none;
+}
+
+@keyframes scrollHintBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 1;
+  }
 }
 
 /* ─── Reduced motion ─────────────────────────────────────────── */
@@ -508,7 +617,7 @@ body {
     height: min(82vh, 520px);
   }
 
-  .invitation {
+  .page-invite:not(.is-open) {
     height: min(82vh, 520px);
     width: auto;
     aspect-ratio: var(--card-ratio);
