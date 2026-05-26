@@ -203,8 +203,6 @@ body.is-open {
 
 .invitation.is-open .page-location{
   display:block;
-  
-  margin-top:100vh;
 }
 
 .location-frame{
