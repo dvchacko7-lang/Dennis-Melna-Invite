@@ -123,7 +123,12 @@ body.is-open {
 }
 
 .invitation.is-open .invite-image {
-  height: auto;
+  display:block;
+  width:100%;
+  height:auto;
+
+  margin-bottom:-6px;
+
   animation: inviteSettle 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 1.4s both;
 }
 
@@ -170,35 +175,48 @@ body.is-open {
 }
 
 /* ─── Page 2: location ─────────────────────────────────────── */
-.page-location {
+.page-location{
   display:none;
   width:100%;
-  background:var(--cream);
-
-  border-radius:0 0 2px 2px;
+  background:#ffffff;
 
   position:relative;
-
   z-index:2;
+
+  margin-top:0;
+
+  padding-top:20px;
 }
 
-.invitation.is-open .page-location {
-  display: block;
+.page-location::before{
+  content:"♡";
+
+  position:absolute;
+  top:25px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  color:#b89d67;
+  font-size:20px;
 }
 
-.location-frame {
+.invitation.is-open .page-location{
+  display:block;
+}
+
+.location-frame{
   position:relative;
   width:100%;
 }
 
-.location-image {
+.location-image{
   width:100%;
   height:auto;
   display:block;
-  pointer-events:none;
 
+  left:0;
   position:relative;
-  left:9px;
 }
 
 /* Google Maps link boxes over location.png */
