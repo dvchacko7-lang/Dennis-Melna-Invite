@@ -637,7 +637,8 @@ body.is-open {
   }
 }
 
-/* ─── Responsive ─────────────────────────────────────────────── */
+/* ─── Responsive ───────────────────────── */
+
 @media (min-width: 480px) {
   .invitation-scene {
     width: min(85vw, 460px);
@@ -652,13 +653,45 @@ body.is-open {
 
 @media (orientation: landscape) and (max-height: 520px) {
   .invitation-scene {
-    width: auto;
-    height: min(82vh, 520px);
+    width:auto;
+    height:min(82vh,520px);
   }
 
-  .page-invite:not(.is-open) {
-    height: min(82vh, 520px);
-    width: auto;
-    aspect-ratio: var(--card-ratio);
+  .page-invite:not(.is-open){
+    height:min(82vh,520px);
+    width:auto;
+    aspect-ratio:var(--card-ratio);
+  }
+}
+
+/* MOBILE ONLY */
+@media (max-width:480px){
+
+  .map-btn{
+      width:30%;
+      min-height:72px;
+      padding:.65rem;
+      border-radius:10px;
+  }
+
+  .map-btn--church{
+      top:33%;
+      left:51%;
+  }
+
+  .map-btn--hall{
+      top:53%;
+      left:51%;
+  }
+
+  .map-btn__title{
+      font-size:.60rem;
+      letter-spacing:.07em;
+      line-height:1.25;
+  }
+
+  .map-btn__cta{
+      font-size:.55rem;
+      margin-top:.3rem;
   }
 }
