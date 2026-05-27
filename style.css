@@ -205,6 +205,46 @@ body.is-open {
   display:block;
 }
 
+/* heading inside page 2 image area */
+.venue-heading{
+  position:absolute;
+
+  top:15%;
+  left:50%;
+  transform:translateX(-50%);
+
+  width:85%;
+  z-index:5;
+
+  text-align:center;
+
+  color:#6c7a6f;
+
+  font-family:"Cormorant Garamond", Georgia, serif;
+
+  font-size:clamp(.65rem,2.0vw,.85rem);
+
+  font-weight:600;
+
+  letter-spacing:.20em;
+
+  line-height:1.7;
+
+  text-transform:uppercase;
+}
+
+.venue-heading::after{
+  content:"❦";
+
+  display:block;
+
+  margin-top:.5rem;
+
+  color:#b89d67;
+
+  font-size:.95rem;
+}
+
 .location-frame{
   position:relative;
   width:100%;
@@ -232,7 +272,7 @@ body.is-open {
   align-items:center;
   justify-content:center;
 
-  width:42%;
+  width:30%;
   min-height:95px;
 
   padding:1rem;
@@ -261,14 +301,14 @@ body.is-open {
 
 
 .map-btn--church{
-   top:34%;
-   left:53%;
+   top:33%;
+   left:50%;
 }
 
 
 .map-btn--hall{
-   top:63%;
-   left:53%;
+   top:55%;
+   left:50%;
 }
 
 
@@ -292,7 +332,6 @@ body.is-open {
 
    line-height:1.35;
 }
-
 
 .map-btn__cta{
    display:block;
