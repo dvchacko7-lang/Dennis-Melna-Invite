@@ -209,7 +209,7 @@ body.is-open {
 .venue-heading{
   position:absolute;
 
-  top:15%;
+  top:17%;
   left:50%;
   transform:translateX(-50%);
 
@@ -257,6 +257,57 @@ body.is-open {
 
   left:0;
   position:relative;
+}
+
+.compliments{
+  position:absolute;
+
+  bottom:15%;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:80%;
+
+  text-align:center;
+
+  display:flex;
+  flex-direction:column;
+
+  z-index:5;
+}
+
+.compliments-label{
+  font-size:.55rem;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+  color:#9b8860;
+
+  margin-bottom:.25rem;
+}
+
+.compliments-name{
+  font-size:1rem;
+
+  font-style:italic;
+
+  color:#2d4a3e;
+
+  position:relative;
+}
+
+.compliments-name::before,
+.compliments-name::after{
+  content:"❦";
+
+  color:#c9a85d;
+
+  font-size:.35rem;
+
+  margin:0 .5rem;
 }
 
 /* Google Maps link boxes over location.png */
@@ -675,12 +726,12 @@ body.is-open {
   }
 
   .map-btn--church{
-      top:33%;
+      top:35%;
       left:51%;
   }
 
   .map-btn--hall{
-      top:53%;
+      top:55%;
       left:51%;
   }
 
@@ -691,7 +742,15 @@ body.is-open {
   }
 
   .map-btn__cta{
-      font-size:.55rem;
+      font-size:.65rem;
       margin-top:.3rem;
+  }
+  .compliments-name{
+        font-size:.65rem;
+    }
+  
+    .compliments-label{
+        font-size:.45rem;
+    }
   }
 }
