@@ -352,14 +352,14 @@ body.is-open {
 
 
 .map-btn--church{
-   top:33%;
-   left:50%;
+   top:34%;
+   left:53%;
 }
 
 
 .map-btn--hall{
-   top:52%;
-   left:50%;
+   top:53%;
+   left:53%;
 }
 
 
@@ -727,12 +727,12 @@ body.is-open {
 
   .map-btn--church{
       top:35%;
-      left:51%;
+      left:53%;
   }
 
   .map-btn--hall{
-      top:55%;
-      left:51%;
+      top:54%;
+      left:53%;
   }
 
   .map-btn__title{
